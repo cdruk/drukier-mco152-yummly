@@ -1,4 +1,4 @@
-package drukier.recipe;
+package drukier.recipes;
 
 import static org.junit.Assert.*;
 
@@ -21,7 +21,7 @@ public class RecipeServiceTest {
 	@Test
 	public void testGetAllMonth() throws IOException {
 		// given
-		Retrofit retrofit = new Retrofit.Builder().baseUrl("https://earthquake.usgs.gov")
+		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://api.yummly.com/v1/api/")
 				.addConverterFactory(GsonConverterFactory.create()).build();
 
 		RecipeService service = retrofit.create(RecipeService.class);
