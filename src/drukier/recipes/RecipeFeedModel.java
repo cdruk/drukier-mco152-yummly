@@ -5,18 +5,18 @@ import java.util.List;
 public class RecipeFeedModel {
 
 	private String type;
-	private List<Recipe> details;
+	private List<Recipe> matches;
 
-	public RecipeFeedModel(String type, List<Recipe> details) {
+	public RecipeFeedModel(String type, List<Recipe> matches) {
 		this.type = type;
-		this.details = details;
+		this.matches = matches;
 	}
 
 	public String getType() {
 		return type;
 	}
 
-	public List<Recipe> getDetails() {
-		return details;
+	public List<Recipe> getMatches() {
+		return matches;
 	}
 }

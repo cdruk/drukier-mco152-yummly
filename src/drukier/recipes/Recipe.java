@@ -1,18 +1,28 @@
 package drukier.recipes;
 
 public class Recipe {
-	private String id;
-	private RecipeProperties properties;
+	private String recipeName;
+	private String [] ingredients;
+	private int rating;
 	
-	public Recipe (String name, String[] ingredients, int rating)  {
-		properties = new RecipeProperties(name, ingredients, rating);
+	public Recipe(String recipeName, String[] ingredients, int rating) {
+
+		this.recipeName = recipeName;
+		this.ingredients = ingredients;
+		this.rating = rating;
 	}
 
-	public String getId() {
-		return id;
+	public String getRecipeName() {
+		return recipeName;
 	}
 
-	public RecipeProperties getProperties() {
-		return properties;
+	public String[] getIngredients() {
+		return ingredients;
 	}
+
+	public int getRating() {
+		return rating;
+	}
+	
+	
 }

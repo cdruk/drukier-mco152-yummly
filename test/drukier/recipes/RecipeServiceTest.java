@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import drukier.recipes.Recipe;
 import drukier.recipes.RecipeFeedModel;
-import drukier.recipes.RecipeProperties;
 import drukier.recipes.RecipeService;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -19,10 +18,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RecipeServiceTest {
 
 	@Test
-	public void testGetAllMonth() throws IOException {
+	public void testGetAllRecipies() throws IOException {
 		// given
-		Retrofit retrofit = new Retrofit.Builder().baseUrl("http://api.yummly.com/v1/api/")
-				.addConverterFactory(GsonConverterFactory.create()).build();
+		Retrofit retrofit = new Retrofit.Builder()
+				.baseUrl("http://api.yummly.com/v1/api/")
+				.addConverterFactory(GsonConverterFactory.create())
+				.build();
 
 		RecipeService service = retrofit.create(RecipeService.class);
 
@@ -33,10 +34,10 @@ public class RecipeServiceTest {
 
 		// then
 		assertNotNull(response.body());
-		List<Recipe> details = response.body().getDetails();
+		List<Recipe> details = response.body().getMatches();
 		assertTrue(details.size() > 0);
-		RecipeProperties properties = details.get(0).getProperties();
-		assertNotNull(properties.getName());
+		//String recipeName = details.get(0).getRecipeName();
+		//assertNotNull(recipeName.getName());
 	}
 
 }
