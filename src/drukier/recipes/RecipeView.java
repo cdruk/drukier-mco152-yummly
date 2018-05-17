@@ -20,11 +20,11 @@ public class RecipeView extends JFrame {
 
 	private JTextField searchValue;
 	private JTextArea results;
-	private JButton search = new JButton("Search for:");
+	private JButton search = new JButton("Search");
 
 	public RecipeView() {
 
-		setTitle("Recipe Search");
+		setTitle("Cookbook");
 		setSize(800, 400);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -37,7 +37,7 @@ public class RecipeView extends JFrame {
 		JPanel northPanel = new JPanel();
 		northPanel.setLayout(new GridLayout(0, 3));
 
-		northPanel.add(new JLabel("Search", SwingConstants.CENTER));
+		northPanel.add(new JLabel("Search for:", SwingConstants.CENTER));
 		northPanel.add(searchValue);
 		northPanel.add(search);
 		panel.add(northPanel, BorderLayout.NORTH);
