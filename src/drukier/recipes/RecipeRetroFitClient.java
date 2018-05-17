@@ -11,6 +11,6 @@ public class RecipeRetroFitClient {
 
 	RecipeService service = retrofit.create(RecipeService.class);
 
-	Call<RecipeFeedModel> mCall = service.getAllRecipes();
+	Call<RecipeFeedModel> mCall = service.getAllRecipes(null);
 
 }
