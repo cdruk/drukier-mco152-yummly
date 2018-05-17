@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javax.swing.text.JTextComponent;
 
-import drukier.earthquake.Earthquake;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,8 +54,8 @@ public class RecipeController {
 		Optional<Recipe> best = feed.getMatches().stream()
 				.max(Comparator.comparing(e -> e.getRating()));
 		
-		String recipes = String.valueOf(feed.getRecipeName());
-		results.setText(view.getResults());
+		String recipe = String.valueOf(best.get().getRecipeName());
+		results.setText(recipe);
 		
 	}
 

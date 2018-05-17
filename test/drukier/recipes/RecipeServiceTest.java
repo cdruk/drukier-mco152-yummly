@@ -27,7 +27,7 @@ public class RecipeServiceTest {
 
 		RecipeService service = retrofit.create(RecipeService.class);
 
-		Call<RecipeFeedModel> call = service.getAllRecipes();
+		Call<RecipeFeedModel> call = service.getAllRecipes(null);
 
 		// when
 		Response<RecipeFeedModel> response = call.execute();
