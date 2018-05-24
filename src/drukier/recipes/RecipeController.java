@@ -40,25 +40,7 @@ public class RecipeController {
 		});
 	}
 
-	protected void requestRecipeDetailsFeed(Call<RecipeModel> call) {
 
-		call.enqueue(new Callback<RecipeModel>() {
-
-			@Override
-			public void onResponse(Call<RecipeModel> call, Response<RecipeModel> response) {
-				RecipeModel feed = response.body();
-
-				showRecipeUrl(feed);
-
-			}
-
-			@Override
-			public void onFailure(Call<RecipeModel> call, Throwable t) {
-				t.printStackTrace();
-			}
-
-		});
-	}
 
 	void searchRecipe() {
 		requestRecipeFeed(service.getAllRecipes(searchRequest()), view.getResults());
@@ -71,23 +53,37 @@ public class RecipeController {
 
 	}
 
-	protected void  showRecipeUrl(RecipeModel feed) {
-		url = String.valueOf(feed.getAttribution().getUrl());
+	protected void showRecipeUrl(RecipeModel feed) {
 	}
 
 	private void showResults(RecipeFeedModel feed, JTextComponent matches) {
 		Optional<Recipe> best = feed.getMatches().stream().max(Comparator.comparing(e -> e.getRating()));
 
-		String recipeName = String.valueOf(best.get().getRecipeName());
+		String recipeName = best.get().getRecipeName();
 
-		String recipeId = String.valueOf(best.get().getId());
+		String recipeId = best.get().getId();
 
-		requestRecipeDetailsFeed(service.getRecipeDetails(recipeId));
+		service.getRecipeDetails(recipeId).enqueue(new Callback<RecipeModel>() {
+
+			@Override
+			public void onResponse(Call<RecipeModel> call, Response<RecipeModel> response) {
+				RecipeModel feed = response.body();
+
+				url = String.valueOf(feed.getAttribution().getUrl());
+				
+				String finalResults = (recipeName + ": " + url);
+
+				view.getResults().setText(finalResults);
+			}
+
+			@Override
+			public void onFailure(Call<RecipeModel> call, Throwable t) {
+				t.printStackTrace();
+			}
+
+		});
 		
 
-		String finalResults = (recipeName + ": " + url);
-
-		view.getResults().setText(finalResults);
 	}
 
 }
