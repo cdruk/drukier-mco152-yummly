@@ -71,10 +71,10 @@ public class RecipeController {
 
 				String url = feed.getAttribution().getUrl();
 				
-				String ingredients =  String.join("\n\t", feed.getIngredientLines());
-
+				String ingredients =  String.join("<br />", feed.getIngredientLines());
 				
-				String finalResults = (recipeName + ": " + url + "\n\t" + ingredients);
+				String finalResults = (recipeName + ": " 
+						+ "<a href=\"" + url + "\">" + url + "</a>"+ "<br />" + ingredients);
 
 				view.getResults().setText(finalResults);
 			}

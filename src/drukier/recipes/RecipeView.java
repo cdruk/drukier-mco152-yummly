@@ -1,17 +1,23 @@
 package drukier.recipes;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RecipeView extends JFrame {
 
 	private JTextField searchValue;
-	private JTextArea results;
+	private JEditorPane results = new JEditorPane("text/html", "");
 	private JButton search = new JButton("Search");
 
 	public RecipeView() {
@@ -29,7 +35,7 @@ public class RecipeView extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		searchValue = new JTextField();
-		results = new JTextArea();
+		results = new JEditorPane();
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -44,8 +50,24 @@ public class RecipeView extends JFrame {
 
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(0, 2));
+		results.setEditable(false);
+		results.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
+		results.addHyperlinkListener(new HyperlinkListener() {
+		    public void hyperlinkUpdate(HyperlinkEvent e) {
+		        if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+		            if(Desktop.isDesktopSupported()) {
+		                try {
+		                    Desktop.getDesktop().browse(e.getURL().toURI());
+		                }
+		                catch (IOException | URISyntaxException e1) {
+		                    e1.printStackTrace();
+		                }
+		            }
+		        }
+		    }
+		}
+		);
 		panel.add(results, BorderLayout.CENTER);
-
 		search.addActionListener(this::searchRecipe);
 
 		add(panel);
@@ -62,28 +84,29 @@ public class RecipeView extends JFrame {
 		controller.searchRecipe();
 	}
 
-	public JTextArea getResults() {
-		return results;
+
+	public JTextField getSearchValue() {
+		return searchValue;
 	}
 
 	public void setSearchValue(JTextField searchValue) {
 		this.searchValue = searchValue;
 	}
 
-	public void setResults(JTextArea results) {
-		this.results = results;
+	public JEditorPane getResults() {
+		return results;
 	}
 
-	public void setSearch(JButton search) {
-		this.search = search;
+	public void setResults(JEditorPane results) {
+		this.results = results;
 	}
 
 	public JButton getSearch() {
 		return search;
 	}
 
-	public JTextField getSearchValue() {
-		return searchValue;
+	public void setSearch(JButton search) {
+		this.search = search;
 	}
 
 	public static void main(String[] args) {
