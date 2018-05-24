@@ -42,6 +42,8 @@ public class RecipeView extends JFrame {
 		northPanel.add(search);
 		panel.add(northPanel, BorderLayout.NORTH);
 
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new GridLayout(0, 2));
 		panel.add(results, BorderLayout.CENTER);
 
 		search.addActionListener(this::searchRecipe);

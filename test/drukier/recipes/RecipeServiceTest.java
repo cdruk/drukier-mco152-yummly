@@ -39,5 +39,28 @@ public class RecipeServiceTest {
 		//String recipeName = details.get(0).getRecipeName();
 		//assertNotNull(recipeName.getName());
 	}
+	
+	@Test
+	public void testGetRecipeDetails() throws IOException {
+		// given
+		Retrofit retrofit = new Retrofit.Builder()
+				.baseUrl("http://api.yummly.com/v1/api/")
+				.addConverterFactory(GsonConverterFactory.create())
+				.build();
+
+		RecipeService service = retrofit.create(RecipeService.class);
+
+		Call<RecipeModel> call = service.getRecipeDetails("Lasagna-494544");
+
+		// when
+		Response<RecipeModel> response = call.execute();
+
+		// then
+		assertNotNull(response.body());
+		Attribution details = response.body().getAttribution();
+		assertTrue(details != null);
+		//String recipeName = details.get(0).getRecipeName();
+		//assertNotNull(recipeName.getName());
+	}
 
 }

@@ -2,13 +2,13 @@ package drukier.recipes;
 
 public class Recipe {
 	private String recipeName;
-	private String [] ingredients;
+	private String id;
 	private int rating;
 	
-	public Recipe(String recipeName, String[] ingredients, int rating) {
+	public Recipe(String recipeName, String id, int rating) {
 
 		this.recipeName = recipeName;
-		this.ingredients = ingredients;
+		this.id = id;
 		this.rating = rating;
 	}
 
@@ -16,8 +16,8 @@ public class Recipe {
 		return recipeName;
 	}
 
-	public String[] getIngredients() {
-		return ingredients;
+	public String getId() {
+		return id;
 	}
 
 	public int getRating() {

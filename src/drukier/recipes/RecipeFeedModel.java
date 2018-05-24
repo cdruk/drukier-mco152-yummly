@@ -4,19 +4,21 @@ import java.util.List;
 
 public class RecipeFeedModel {
 
-	private String type;
 	private List<Recipe> matches;
+	private int totalMatchCount;
 
-	public RecipeFeedModel(String type, List<Recipe> matches) {
-		this.type = type;
+	public RecipeFeedModel(List<Recipe> matches, int totalMatchCount) {
+		super();
 		this.matches = matches;
-	}
-
-	public String getType() {
-		return type;
+		this.totalMatchCount = totalMatchCount;
 	}
 
 	public List<Recipe> getMatches() {
 		return matches;
 	}
+
+	public int getTotalMatchCount() {
+		return totalMatchCount;
+	}
+
 }
