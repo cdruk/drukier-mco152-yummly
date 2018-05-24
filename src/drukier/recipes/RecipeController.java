@@ -13,7 +13,7 @@ public class RecipeController {
 
 	private RecipeView view;
 	private RecipeService service;
-	private String url;
+
 
 	public RecipeController(RecipeView view, RecipeService service) {
 		this.view = view;
@@ -69,9 +69,12 @@ public class RecipeController {
 			public void onResponse(Call<RecipeModel> call, Response<RecipeModel> response) {
 				RecipeModel feed = response.body();
 
-				url = String.valueOf(feed.getAttribution().getUrl());
+				String url = feed.getAttribution().getUrl();
 				
-				String finalResults = (recipeName + ": " + url);
+				String ingredients =  String.join("\n\t", feed.getIngredientLines());
+
+				
+				String finalResults = (recipeName + ": " + url + "\n\t" + ingredients);
 
 				view.getResults().setText(finalResults);
 			}
