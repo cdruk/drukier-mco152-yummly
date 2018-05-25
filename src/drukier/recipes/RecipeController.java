@@ -74,7 +74,8 @@ public class RecipeController {
 				String ingredients =  String.join("<br />", feed.getIngredientLines());
 				
 				String finalResults = (recipeName + ": " 
-						+ "<a href=\"" + url + "\">" + url + "</a>"+ "<br />" + ingredients);
+						+ "<a href=\"" + url + "\">" + url + "</a>"
+						+ "<br />" + ingredients);
 
 				view.getResults().setText(finalResults);
 			}
