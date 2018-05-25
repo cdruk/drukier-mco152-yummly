@@ -53,9 +53,6 @@ public class RecipeController {
 
 	}
 
-	protected void showRecipeUrl(RecipeModel feed) {
-	}
-
 	private void showResults(RecipeFeedModel feed, JTextComponent matches) {
 		Optional<Recipe> best = feed.getMatches().stream().max(Comparator.comparing(e -> e.getRating()));
 
@@ -67,17 +64,7 @@ public class RecipeController {
 
 			@Override
 			public void onResponse(Call<RecipeModel> call, Response<RecipeModel> response) {
-				RecipeModel feed = response.body();
-
-				String url = feed.getAttribution().getUrl();
-				
-				String ingredients =  String.join("<br />", feed.getIngredientLines());
-				
-				String finalResults = (recipeName + ": " 
-						+ "<a href=\"" + url + "\">" + url + "</a>"
-						+ "<br />" + ingredients);
-
-				view.getResults().setText(finalResults);
+				showRecipeResponse(recipeName, response);
 			}
 
 			@Override
@@ -88,6 +75,20 @@ public class RecipeController {
 		});
 		
 
+	}
+
+	private void showRecipeResponse(String recipeName, Response<RecipeModel> response) {
+		RecipeModel feed = response.body();
+
+		String url = feed.getAttribution().getUrl();
+		
+		String ingredients =  String.join("<br />", feed.getIngredientLines());
+		
+		String finalResults = (recipeName + ": " 
+				+ "<a href=\"" + url + "\">" + url + "</a>"
+				+ "<br />" + ingredients);
+
+		view.getResults().setText(finalResults);
 	}
 
 }
